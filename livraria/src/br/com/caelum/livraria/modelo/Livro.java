@@ -5,14 +5,19 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="AL_LIVRO")
+@SequenceGenerator(name="id_seq_liv", sequenceName="liv_seq", initialValue = 1, allocationSize = 1)
 public class Livro {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_seq_liv")
 	private Integer id;
 
 	private String titulo;
