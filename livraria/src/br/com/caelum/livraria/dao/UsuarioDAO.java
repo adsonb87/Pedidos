@@ -13,26 +13,21 @@ public class UsuarioDAO {
 
 		EntityManager em = new JPAUtil().getEntityManager();
 
+		TypedQuery<Usuario> query = em
+				.createQuery("SELECT u FROM Usuario u WHERE  u.email = :pEmail AND  u.senha = :pSenha", Usuario.class);
+
+		query.setParameter("pEmail", usuario.getEmail());
+		query.setParameter("pSenha", usuario.getSenha());
+
 		try {
-			TypedQuery<Usuario> query = em.createQuery(
-					"SELECT u FROM Usuario u WHERE  u.email = :pEmail AND  u.senha = :pSenha", Usuario.class);
-
-			query.setParameter("pEmail", usuario.getEmail());
-			query.setParameter("pSenha", usuario.getSenha());
-
 			Usuario result = query.getSingleResult();
-
-			em.close();
-
-			if (result != null) {
-				return true;
-			} else {
-				return false;
-			}
-
 		} catch (NoResultException nre) {
 			return false;
 		}
+
+		em.close();
+
+		return true;
 	}
 
 }
