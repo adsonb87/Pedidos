@@ -1,5 +1,6 @@
 package br.com.caelum.livraria.util;
 
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
@@ -25,6 +26,10 @@ public class Autorizador implements PhaseListener{
 		if(usuarioLogado != null){
 			return;
 		}
+		
+		NavigationHandler handler = context.getApplication().getNavigationHandler();
+		handler.handleNavigation(context, null, "/login?faces-redirect=true");
+		context.renderResponse();
 	}
 
 	@Override
