@@ -69,7 +69,7 @@ public class ValidaPedido {
 								pw.println("Erro cpf, linha: " + line);
 								pw.flush();
 							}else if(validaPasseLivre.validaPL(text[0])){
-								System.out.println("Cpf não se encontra na lista de PL, linha: " + line);
+								System.out.println("Cpf n�o se encontra na lista de PL, linha: " + line);
 								pw.println("Cpf não se encontra na lista de PL, linha: " + line);
 								pw.flush();
 							}
