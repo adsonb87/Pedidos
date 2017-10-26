@@ -16,8 +16,8 @@ public class FileDownloadView {
 	private StreamedContent file;
 	
 	public FileDownloadView(){
-		InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("log.txt");
-		file = new DefaultStreamedContent(stream, "log.txt", "Log_Pedido.txt");
+		InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/log/log.txt");
+		file = new DefaultStreamedContent(stream, "log/txt", "logPedidos.txt");
 	}
 	
 	public StreamedContent getFile(){

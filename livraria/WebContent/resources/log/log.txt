@@ -1,0 +1,3 @@
+Campo cpf se encontra vazio, linha: 2
+Cpf em duplicidade nas linhas: [4, 7, 9]
+Pedido validado com sucesso

@@ -7,13 +7,15 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.UploadedFile;
 
+import br.com.caelum.livraria.modelo.ValidaPedido;
+
 @ManagedBean
 @ViewScoped
 public class FileUploadView {
 	
 	private UploadedFile file;
-	
 
+	
 	public UploadedFile getFile() {
 		return file;
 	}
@@ -24,7 +26,7 @@ public class FileUploadView {
 	}
 	
 	public void upload() throws IOException{
-		
+		new ValidaPedido("WebContent/resources/pedido/PedidoTeste.txt").validaArquivoPedido();
     }	
 	
 }

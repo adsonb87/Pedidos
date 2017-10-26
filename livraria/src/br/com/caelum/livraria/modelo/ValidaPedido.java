@@ -32,7 +32,7 @@ public class ValidaPedido {
 		this.linhasArquivo = FileUtils.readLines(arquivo); //LÊ AS LINHAS DO ARQUIVO E CONVERTE EM ARRAY
 		this.listaCpf = new ArrayList<String>();
 		this.line = 1;
-		this.fw = new FileWriter("log.txt");
+		this.fw = new FileWriter("WebContent/resources/log/log.txt");
 		this.pw = new PrintWriter(fw);
 		this.log = new ArrayList<String>();
 		this.validaPasseLivre = new ValidaPasseLivre();
