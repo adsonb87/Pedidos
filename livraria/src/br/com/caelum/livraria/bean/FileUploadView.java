@@ -22,11 +22,11 @@ public class FileUploadView {
 
 	public void setFile(UploadedFile file) {
 		this.file = file;
-		System.out.println(file.toString());
+		System.out.println(file.getFileName());
 	}
 	
 	public void upload() throws IOException{
-		new ValidaPedido("WebContent/resources/pedido/PedidoTeste.txt").validaArquivoPedido();
+		new ValidaPedido(file.getFileName(), file.getInputstream()).validaArquivoPedido();
     }	
 	
 }

@@ -3,6 +3,7 @@ package br.com.caelum.livraria.modelo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,14 @@ public class ValidaPedido {
 	private ArrayList<String> log;
 	private ValidaPasseLivre validaPasseLivre;
 
-	public ValidaPedido(String enderecoArquivo) throws IOException {
-		this.arquivo = new File(enderecoArquivo); //RECEBE O ENDEREÃ‡O DO ARQUIVO A SER IMPORTADO
+	public ValidaPedido(String fileName, InputStream inputstream) throws IOException {
+		//this.arquivo = new File(enderecoArquivo); //RECEBE O ENDEREÇO DO ARQUIVO A SER IMPORTADO
+		this.arquivo = File.createTempFile(fileName, "");
+		FileUtils.copyInputStreamToFile(inputstream, arquivo);
 		this.pedido = null;
 		this.validaCpf = new  ValidaCpf();
 		this.validaQtdDias = new ValidaQuantidadeDias();
-		this.linhasArquivo = FileUtils.readLines(arquivo); //LÃŠ AS LINHAS DO ARQUIVO E CONVERTE EM ARRAY
+		this.linhasArquivo = FileUtils.readLines(arquivo); //LÊ AS LINHAS DO ARQUIVO E CONVERTE EM ARRAY
 		this.listaCpf = new ArrayList<String>();
 		this.line = 1;
 		this.fw = new FileWriter("WebContent/resources/log/log.txt");
