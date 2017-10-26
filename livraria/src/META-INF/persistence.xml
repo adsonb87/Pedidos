@@ -8,17 +8,17 @@
 
    		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
-		<class>br.com.caelum.livraria.modelo.Livro</class>
-		<class>br.com.caelum.livraria.modelo.Autor</class>
-		<class>br.com.caelum.livraria.modelo.Usuario</class>
+		<class>br.com.caelum.livraria.modelo.Rechargeinfo</class>
+		<class>br.com.caelum.livraria.modelo.Rechargeinfostaff</class>
+		<class>br.com.caelum.livraria.modelo.RechargeinfostaffPK</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@10.10.0.22:1521/SBEHOMOL2" />
-            <property name="javax.persistence.jdbc.user" value="urbana" />
-            <property name="javax.persistence.jdbc.password" value="urbana2015" />
+            <property name="javax.persistence.jdbc.user" value="mercury" />
+            <property name="javax.persistence.jdbc.password" value="mercury2" />
 
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="update" /> -->
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.archive.autodetection" value="class" />

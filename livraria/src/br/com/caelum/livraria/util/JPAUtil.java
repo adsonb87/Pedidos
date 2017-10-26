@@ -1,4 +1,4 @@
-package br.com.caelum.livraria.dao;
+package br.com.caelum.livraria.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
