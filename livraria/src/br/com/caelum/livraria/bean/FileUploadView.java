@@ -21,8 +21,11 @@ public class FileUploadView {
 	}
 
 	public void setFile(UploadedFile file) {
-		this.file = file;
-		System.out.println(file.getFileName());
+		if(file.getFileName().endsWith(".txt")){
+			this.file = file;
+		}else{
+			System.out.println("Tipo de arquivo incorreto"+file.getFileName());			
+		}
 	}
 	
 	public void upload() throws IOException{

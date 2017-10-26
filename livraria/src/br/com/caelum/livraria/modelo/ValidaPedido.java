@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.commons.io.FileUtils;
 
 public class ValidaPedido {
 
 	private File arquivo;
+	private File arquivoLog;
 	private Pedido pedido;
 	private ValidaQuantidadeDias validaQtdDias;
 	private ValidaCpf validaCpf;
@@ -27,6 +30,7 @@ public class ValidaPedido {
 
 	public ValidaPedido(String fileName, InputStream inputstream) throws IOException {
 		//this.arquivo = new File(enderecoArquivo); //RECEBE O ENDEREÇO DO ARQUIVO A SER IMPORTADO
+		//this.arquivoLog = new File(""); //String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath("") + "/resources/log/log.txt";
 		this.arquivo = File.createTempFile(fileName, "");
 		FileUtils.copyInputStreamToFile(inputstream, arquivo);
 		this.pedido = null;
@@ -35,7 +39,7 @@ public class ValidaPedido {
 		this.linhasArquivo = FileUtils.readLines(arquivo); //LÊ AS LINHAS DO ARQUIVO E CONVERTE EM ARRAY
 		this.listaCpf = new ArrayList<String>();
 		this.line = 1;
-		this.fw = new FileWriter("WebContent/resources/log/log.txt");
+		this.fw = new FileWriter(FacesContext.getCurrentInstance().getExternalContext().getRealPath("")+"/resources/log/log.txt");
 		this.pw = new PrintWriter(fw);
 		this.log = new ArrayList<String>();
 		this.validaPasseLivre = new ValidaPasseLivre();
@@ -49,9 +53,6 @@ public class ValidaPedido {
 	}
 	
 	public void validaArquivoPedido() throws IOException{
-		if(!validaTipoArquivo(arquivo)){
-			System.out.println("Tipo de arquivo incorreto !");
-		}else{
  			for(String linha : linhasArquivo){
 				pedido = new Pedido();
 				//VERIFICANDO SE A PRIMEIRA LINHA Ã‰ O CABECALHO 0800
@@ -189,7 +190,6 @@ public class ValidaPedido {
 			pw.println("Pedido validado com sucesso");
 			pw.flush();
 			pw.close();
-		}
 	}
 	
 	public ArrayList<Integer> duplicidadeCpf(ArrayList<String> lcpf){
