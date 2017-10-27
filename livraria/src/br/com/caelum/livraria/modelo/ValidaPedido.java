@@ -16,7 +16,6 @@ import org.apache.commons.io.FileUtils;
 public class ValidaPedido {
 
 	private File arquivo;
-	private File arquivoLog;
 	private Pedido pedido;
 	private ValidaQuantidadeDias validaQtdDias;
 	private ValidaCpf validaCpf;
@@ -27,10 +26,9 @@ public class ValidaPedido {
 	private FileWriter fw;
 	private ArrayList<String> log;
 	private ValidaPasseLivre validaPasseLivre;
-
+	
 	public ValidaPedido(String fileName, InputStream inputstream) throws IOException {
 		//this.arquivo = new File(enderecoArquivo); //RECEBE O ENDERE«O DO ARQUIVO A SER IMPORTADO
-		//this.arquivoLog = new File(""); //String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath("") + "/resources/log/log.txt";
 		this.arquivo = File.createTempFile(fileName, "");
 		FileUtils.copyInputStreamToFile(inputstream, arquivo);
 		this.pedido = null;
@@ -45,12 +43,16 @@ public class ValidaPedido {
 		this.validaPasseLivre = new ValidaPasseLivre();
 	}
 	
-	public boolean validaTipoArquivo(File arquivo){
-		if(arquivo.getName().endsWith(".txt")){
-			return true;
-		}
-		return false;
+	public ValidaPedido(){
+		
 	}
+	
+//	public boolean validaTipoArquivo(File arquivo){
+//		if(arquivo.getName().endsWith(".txt")){
+//			return true;
+//		}
+//		return false;
+//	}
 	
 	public void validaArquivoPedido() throws IOException{
  			for(String linha : linhasArquivo){
@@ -62,6 +64,7 @@ public class ValidaPedido {
 										
 					if(text.length<6){
 						System.out.println("Layout incorreto, linha: " + line);
+						log.add("Layout incorreto, linha: " + line);
 						pw.println("Layout incorreto, linha: " + line);
 						pw.flush();
 					}else{	
@@ -70,17 +73,20 @@ public class ValidaPedido {
 						if(!text[0].isEmpty()){
 							if(!validaCpf.isCPF(text[0])){
 								System.out.println("Erro cpf, linha: " + line);
+								log.add("Erro cpf, linha: " + line);
 								pw.println("Erro cpf, linha: " + line);
 								pw.flush();
 							}else if(validaPasseLivre.validaPL(text[0])){
 								System.out.println("Cpf n„o se encontra na lista de PL, linha: " + line);
-								pw.println("Cpf n√£o se encontra na lista de PL, linha: " + line);
+								log.add("Cpf n„o se encontra na lista de PL, linha: " + line);
+								pw.println("Cpf n„o se encontra na lista de PL, linha: " + line);
 								pw.flush();
 							}
 							pedido.setCpf(text[0]);
 							listaCpf.add(text[0]);
 						}else{
 							System.out.println("Campo cpf se encontra vazio, linha: " + line);
+							log.add("Campo cpf se encontra vazio, linha: " + line);
 							pw.println("Campo cpf se encontra vazio, linha: " + line);
 							pw.flush();
 							pedido.setCpf("00000000000");
@@ -92,12 +98,14 @@ public class ValidaPedido {
 						if(!text[1].isEmpty()){
 							if(!validaQtdDias.isQuantidadeDias(Integer.parseInt(text[1]))){
 								System.out.println("Erro quantidade de dias, linha: " + line);
+								log.add("Erro quantidade de dias, linha: " + line);
 								pw.println("Erro quantidade de dias, linha: " + line);
 								pw.flush();
 							}
 							pedido.setUsoDiario(Integer.parseInt(text[1]));
 						}else{
 							System.out.println("Campo quantidade de dias se encontra vazio, linha: " + line);
+							log.add("Campo quantidade de dias se encontra vazio, linha: " + line);
 							pw.println("Campo quantidade de dias se encontra vazio, linha: " + line);
 							pw.flush();
 							pedido.setUsoDiario(0);
@@ -109,12 +117,14 @@ public class ValidaPedido {
 						if(!text[2].isEmpty()){
 							if(!(Double.parseDouble(text[2])>=960)){
 								System.out.println("Erro valor m√≠nimo di√°rio, linha: " + line);
+								log.add("Erro valor m√≠nimo di√°rio, linha: " + line);
 								pw.println("Erro valor m√≠nimo di√°rio, linha: " + line);
 								pw.flush();
 							}
 							pedido.setValorUsoDiario(Double.parseDouble(text[2]));
 						}else{
 							System.out.println("Campo valor m√≠nimo di√°rio vazio, linha: " + line);
+							log.add("Campo valor m√≠nimo di√°rio vazio, linha: " + line);
 							pw.println("Campo valor m√≠nimo di√°rio vazio, linha: " + line);
 							pw.flush();
 							pedido.setValorUsoDiario(0);
@@ -126,8 +136,9 @@ public class ValidaPedido {
 						//COMO N√ÉO √â CAMPO OBRIGAT√ìRIO CASO ESTEJA V√?ZIO VAI SER PREENCHIDO VAZIO
 						if(!text[3].isEmpty()){
 							if(text[3].toUpperCase().contains("TESTE")){
-								System.out.println("Usu√°rio de teste encontrado, linha: " + line);
-								pw.println("Usu√°rio de teste encontrado, linha: " + line);
+								System.out.println("Usu·rio de teste encontrado, linha: " + line);
+								log.add("Usu·rio de teste encontrado, linha: " + line);
+								pw.println("Usu·rio de teste encontrado, linha: " + line);
 								pw.flush();
 							}
 							pedido.setNome(text[3]);
@@ -144,13 +155,15 @@ public class ValidaPedido {
 							if(tipoCartao == 19 || tipoCartao == 17){
 								pedido.setTipoCartao(tipoCartao);							
 							}else{
-								System.out.println("Erro tipo do cart√£o, linha: " + line);
-								pw.println("Erro tipo do cart√£o, linha: " + line);
+								System.out.println("Erro tipo do cart„o, linha: " + line);
+								log.add("Erro tipo do cart„o, linha: " + line);
+								pw.println("Erro tipo do cart„o, linha: " + line);
 								pw.flush();
 							}
 						}else{
-							System.out.println("Campo tipo cart√£o vazio, linha: " + line);
-							pw.println("Campo tipo cart√£o vazio, linha: " + line);
+							System.out.println("Campo tipo cart„o vazio, linha: " + line);
+							log.add("Campo tipo cart„o vazio, linha: " + line);
+							pw.println("Campo tipo cart„o vazio, linha: " + line);
 							pw.flush();
 							pedido.setTipoCartao(0);
 						}
@@ -164,13 +177,15 @@ public class ValidaPedido {
 							if(aplicacao == 911 || aplicacao == 905){
 								pedido.setAplicacao(aplicacao);							
 							}else{
-								System.out.println("Erro tipo da aplica√ß√£o, linha: " + line);
-								pw.println("Erro tipo da aplica√ß√£o, linha: " + line);
+								System.out.println("Erro tipo da aplicaÁ„o, linha: " + line);
+								log.add("Erro tipo da aplicaÁ„o, linha: " + line);
+								pw.println("Erro tipo da aplicaÁ„o, linha: " + line);
 								pw.flush();
 							}
 						}else{
-							System.out.println("Campo tipo cart√£o vazio, linha: " + line);
-							pw.println("Campo tipo cart√£o vazio, linha: " + line);
+							System.out.println("Campo tipo cart„o vazio, linha: " + line);
+							log.add("Campo tipo cart„o vazio, linha: " + line);
+							pw.println("Campo tipo cart„o vazio, linha: " + line);
 							pw.flush();
 							pedido.setAplicacao(0);
 						}
@@ -183,15 +198,23 @@ public class ValidaPedido {
 			}
 			if(!duplicidadeCpf(listaCpf).isEmpty()){ // CHAMA O MET√ìDO PARA VERIFICAR A DUPLICIDADE DE CPF,re
 				System.out.println("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
+				log.add("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
 				pw.println("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
 				pw.flush();
 			}
 			System.out.println("Pedido validado com sucesso");
+			log.add("Pedido validado com sucesso");
 			pw.println("Pedido validado com sucesso");
 			pw.flush();
 			pw.close();
 	}
 	
+	
+	
+	public ArrayList<String> getLog() {
+		return log;
+	}
+
 	public ArrayList<Integer> duplicidadeCpf(ArrayList<String> lcpf){
 		// VERIFICAR SE H√? DUPLICIDADE NO CPF
 		int i = 2;
