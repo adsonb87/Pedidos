@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.caelum.livraria.modelo.ValidaPedido;
+import javafx.scene.control.ComboBox;
 
 @ManagedBean
 @ViewScoped

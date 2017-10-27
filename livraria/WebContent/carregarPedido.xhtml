@@ -13,20 +13,24 @@
 
 	<ui:define name="conteudo">
 		<h:form enctype="multipart/form-data">
-			<fieldset>
-				<legend>Carregar Pedido</legend>
+			<p:fieldset legend="Carregar Pedido">
 				<p:growl id="pedido" showDetail="true" />
+				
+				
 				<p:fileUpload value="#{fileUploadView.file}" mode="simple"
-					skinSimple="true" sizeLimit="1"/>
+					skinSimple="true" update="pedido" allowTypes="/(\.|\/)(txt)$/"/>
+				
+					
 				<br /> <br />
 				<p:commandButton value="Enviar" ajax="false"
 					actionListener="#{fileUploadView.upload}" disabled="false"
 					icon="ui-icon-arrowreturnthick-1-n" />
-			</fieldset>
+			</p:fieldset>
 		</h:form>
+		
+		
 		<h:form>
-			<fieldset>
-				<legend>Baixar Log</legend>
+			<p:fieldset legend="Baixar Log">
 				<p:dialog modal="true" widgetVar="statusDialog" header="Status"
 					draggable="false" closable="false" resizable="false">
 					<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
@@ -49,7 +53,7 @@
 						PF('statusDialog').hide();
 					}
 				</script>
-			</fieldset>
+			</p:fieldset>
 		</h:form>
 	</ui:define>
 </ui:composition>
