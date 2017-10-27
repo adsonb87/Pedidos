@@ -13,8 +13,6 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FileUtils;
 
-import br.com.caelum.livraria.bean.CountView;
-
 public class ValidaPedido {
 
 	private File arquivo;
