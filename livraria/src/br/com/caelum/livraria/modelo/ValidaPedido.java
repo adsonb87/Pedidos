@@ -13,6 +13,8 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FileUtils;
 
+import br.com.caelum.livraria.bean.LogBean;
+
 public class ValidaPedido {
 
 	private File arquivo;
@@ -25,6 +27,8 @@ public class ValidaPedido {
 	private PrintWriter pw;
 	private FileWriter fw;
 	private ArrayList<String> log;
+	private Log l;
+	private LogBean lb;
 	private ValidaPasseLivre validaPasseLivre;
 	
 	public ValidaPedido(String fileName, InputStream inputstream) throws IOException {
@@ -40,6 +44,8 @@ public class ValidaPedido {
 		this.fw = new FileWriter(FacesContext.getCurrentInstance().getExternalContext().getRealPath("")+"/resources/log/log.txt");
 		this.pw = new PrintWriter(fw);
 		this.log = new ArrayList<String>();
+		this.l = new Log();
+		this.lb = new LogBean();
 		this.validaPasseLivre = new ValidaPasseLivre();
 	}
 	
@@ -57,28 +63,34 @@ public class ValidaPedido {
 	public void validaArquivoPedido() throws IOException{
  			for(String linha : linhasArquivo){
 				pedido = new Pedido();
-				//VERIFICANDO SE A PRIMEIRA LINHA √â O CABECALHO 0800
+				//VERIFICANDO SE A PRIMEIRA LINHA … O CABECALHO 0800
 				if (!linha.equals("0800")) {
-					//L√ä AS LINHAS DO ARQUIVO E SEPARA OS TRECHOS PELO SEPARADOR |
+					//L  AS LINHAS DO ARQUIVO E SEPARA OS TRECHOS PELO SEPARADOR |
 					String[] text = linha.split(Pattern.quote("|"));
 										
 					if(text.length<6){
 						System.out.println("Layout incorreto, linha: " + line);
 						log.add("Layout incorreto, linha: " + line);
+						l.setComentario("Layout incorreto, linha: " + line);
+						lb.adicionarLog(l);
 						pw.println("Layout incorreto, linha: " + line);
 						pw.flush();
 					}else{	
-							//VERIFICA SE O CPF VAI ESTAR VAZIO E AP√ìS SE O CPF √â V√?LIDO, 
+						//VERIFICA SE O CPF VAI ESTAR VAZIO E AP”S SE O CPF … V¡LIDO, 
 						//CASO N√ÉO, EXIBE O ERRO NO LOG, SE FOR VAZIO INFORMA E PREENCHE O CPF COM 0
 						if(!text[0].isEmpty()){
 							if(!validaCpf.isCPF(text[0])){
 								System.out.println("Erro cpf, linha: " + line);
 								log.add("Erro cpf, linha: " + line);
+								l.setComentario("Erro cpf, linha: " + line);
+								lb.adicionarLog(l);
 								pw.println("Erro cpf, linha: " + line);
 								pw.flush();
 							}else if(validaPasseLivre.validaPL(text[0])){
 								System.out.println("Cpf n„o se encontra na lista de PL, linha: " + line);
 								log.add("Cpf n„o se encontra na lista de PL, linha: " + line);
+								l.setComentario("Cpf n„o se encontra na lista de PL, linha: " + line);
+								lb.adicionarLog(l);
 								pw.println("Cpf n„o se encontra na lista de PL, linha: " + line);
 								pw.flush();
 							}
@@ -87,6 +99,8 @@ public class ValidaPedido {
 						}else{
 							System.out.println("Campo cpf se encontra vazio, linha: " + line);
 							log.add("Campo cpf se encontra vazio, linha: " + line);
+							l.setComentario("Campo cpf se encontra vazio, linha: " + line);
+							lb.adicionarLog(l);
 							pw.println("Campo cpf se encontra vazio, linha: " + line);
 							pw.flush();
 							pedido.setCpf("00000000000");
@@ -112,28 +126,28 @@ public class ValidaPedido {
 						}
 						
 						
-						//VERIFICA SE O VALOR MINIMO √â MENOR QUE 3 PASSAGENS DO ANEL A OU VAZIA
+						//VERIFICA SE O VALOR MINIMO … MENOR QUE 3 PASSAGENS DO ANEL A OU VAZIA
 						//CASO FOR VAZIO VAI PREENCHER O VALOR COM 0
 						if(!text[2].isEmpty()){
 							if(!(Double.parseDouble(text[2])>=960)){
-								System.out.println("Erro valor m√≠nimo di√°rio, linha: " + line);
-								log.add("Erro valor m√≠nimo di√°rio, linha: " + line);
-								pw.println("Erro valor m√≠nimo di√°rio, linha: " + line);
+								System.out.println("Erro valor mÌnimo di·rio, linha: " + line);
+								log.add("Erro valor mÌnimo di·rio, linha: " + line);
+								pw.println("Erro valor mÌnimo di·rio, linha: " + line);
 								pw.flush();
 							}
 							pedido.setValorUsoDiario(Double.parseDouble(text[2]));
 						}else{
-							System.out.println("Campo valor m√≠nimo di√°rio vazio, linha: " + line);
-							log.add("Campo valor m√≠nimo di√°rio vazio, linha: " + line);
-							pw.println("Campo valor m√≠nimo di√°rio vazio, linha: " + line);
+							System.out.println("Campo valor mÌnimo di·rio vazio, linha: " + line);
+							log.add("Campo valor mÌnimo di·rio vazio, linha: " + line);
+							pw.println("Campo valor mÌnimo di·rio vazio, linha: " + line);
 							pw.flush();
 							pedido.setValorUsoDiario(0);
 						}
 						
 						
-						//VERIFICA SE O CAMPO DO NOME CONT√âM O NOME TESTE
-						//CASO FOR USU√?RIO DE TESTE ELE VAI INFORMAR NO LOG
-						//COMO N√ÉO √â CAMPO OBRIGAT√ìRIO CASO ESTEJA V√?ZIO VAI SER PREENCHIDO VAZIO
+						//VERIFICA SE O CAMPO DO NOME CONT…M O NOME TESTE
+						//CASO FOR USU¡RIO DE TESTE ELE VAI INFORMAR NO LOG
+						//COMO N√O H¡ CAMPO OBRIGAT”RIO CASO ESTEJA V¡ZIO VAI SER PREENCHIDO VAZIO
 						if(!text[3].isEmpty()){
 							if(text[3].toUpperCase().contains("TESTE")){
 								System.out.println("Usu·rio de teste encontrado, linha: " + line);
@@ -149,7 +163,7 @@ public class ValidaPedido {
 						
 						//VERIFICA SE O CAMPO TIPO CARTAO VAI ESTAR VAZIO
 						//CASO FOR VAZIO VAI SER PREENCHIDO COM 0, SE N√ÉO FOR
-						//VAI SER VERIFICADO SE √â ALGUM DOS DOIS TIPOS 19 OU 17
+						//VAI SER VERIFICADO SE H¡ ALGUM DOS DOIS TIPOS 19 OU 17
 						if(!text[4].isEmpty()){
 							Integer tipoCartao = Integer.parseInt(text[4]);
 							if(tipoCartao == 19 || tipoCartao == 17){
@@ -171,7 +185,7 @@ public class ValidaPedido {
 						
 						//VERIFICA SE O CAMPO APLICACAO VAI ESTAR VAZIO
 						//CASO FOR VAI SER PREENCHIDO COM 0, SE N√ÉO FOR
-						//VAI SER VERIFICADO SE √â ALGUM DOS DOIS TIPOS 911 OU 905
+						//VAI SER VERIFICADO SE H¡ ALGUM DOS DOIS TIPOS 911 OU 905
 						if(!text[5].isEmpty()){
 							Integer aplicacao = Integer.parseInt(text[5]);
 							if(aplicacao == 911 || aplicacao == 905){
@@ -214,9 +228,13 @@ public class ValidaPedido {
 	public ArrayList<String> getLog() {
 		return log;
 	}
+	
+	public void setLog(ArrayList<String> log) {
+		this.log = log;
+	}
 
 	public ArrayList<Integer> duplicidadeCpf(ArrayList<String> lcpf){
-		// VERIFICAR SE H√? DUPLICIDADE NO CPF
+		// VERIFICAR SE H¡ DUPLICIDADE NO CPF
 		int i = 2;
 		int count = 0;
 		ArrayList<Integer> ln = new ArrayList<Integer>();
