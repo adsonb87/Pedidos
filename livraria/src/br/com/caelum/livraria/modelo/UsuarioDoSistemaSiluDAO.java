@@ -3,15 +3,13 @@ package br.com.caelum.livraria.modelo;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import br.com.caelum.livraria.util.JPAUtil;
 
 public class UsuarioDoSistemaSiluDAO {
 
 	public boolean existe(UsuarioDoSistemaSilu UsuarioDoSistemaSilu, String senha) {
 
-		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		
 		EntityManager em = new JPAUtil().getEntityManager();
 
@@ -25,7 +23,8 @@ public class UsuarioDoSistemaSiluDAO {
 		try {
 			result = query.getSingleResult();
 			System.out.println(result.getSenha());
-			if (bcrypt.matches(senha, result.getSenha())) {
+			//if (bcrypt.matches(senha, result.getSenha())) {
+			if(senha.equalsIgnoreCase(result.getSenha())){
 				return true;
 			}
 		} catch (Exception e) {

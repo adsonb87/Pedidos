@@ -42,4 +42,11 @@ public class TipoDeUsuarioDoSistemaSilu {
 		this.descricao = descricao;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoDeUsuarioDoSistemaSilu [id=" + id + ", tipo=" + tipo + ", descricao=" + descricao + "]";
+	}
+	
+	
+
 }

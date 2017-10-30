@@ -88,4 +88,11 @@ public class UsuarioDoSistemaSilu {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
+	@Override
+	public String toString() {
+		return "UsuarioDoSistemaSilu [id=" + id + ", nome=" + nome + ", login=" + login + ", email=" + email
+				+ ", senha=" + senha + ", tipo=" + tipo + ", ultimaAlteracao=" + ultimaAlteracao + "]";
+	}
+	
+	
 }
