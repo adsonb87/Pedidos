@@ -200,6 +200,9 @@ public class ValidaPedido {
 				System.out.println("Linha: "+line);
 				line ++;
 			}
+ 			
+ 			
+ 			
 			if(!duplicidadeCpf(listaCpf).isEmpty()){ // CHAMA O METÓDO PARA VERIFICAR A DUPLICIDADE DE CPF,re
 				System.out.println("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
 				log.add("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
@@ -213,10 +216,8 @@ public class ValidaPedido {
 			pw.close();
 	}
 	
-	
-	
-	public List<String> getListarLog() throws IOException {
-		List<String> lista = FileUtils.readLines(arquivo);
+	public String getListarLog(){
+		String lista = "teste";
 		return lista;
 	}
 	
