@@ -5,24 +5,20 @@ import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "SILU_USUARIO_SISTEMA")
-@SequenceGenerator(name = "id_sequence_usuario_sistema_silu", sequenceName = "ID_SEQ", initialValue = 5, allocationSize = 1)
-
+//@SequenceGenerator(name = "id_sequence_usuario_sistema_silu", sequenceName = "ID_SEQ", initialValue = 5, allocationSize = 1)
 public class UsuarioDoSistemaSilu {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence_usuario_sistema_silu")
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence_usuario_sistema_silu")
 	private Integer id;
 
 	private String nome;

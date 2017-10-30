@@ -2,20 +2,17 @@ package br.com.caelum.livraria.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "SILU_TIPO_USUARIO_SISTEMA")
-@SequenceGenerator(name = "id_sequence_tipo_usuario_silu", sequenceName = "ID_SEQ", initialValue = 5, allocationSize = 1)
+//@SequenceGenerator(name="id_seq_tipo_usuario", sequenceName="tipo_usu_seq", initialValue=1, allocationSize=1)
 public class TipoDeUsuarioDoSistemaSilu {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence_tipo_usuario_silu")
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="id_seq_tipo_usuario")
 	private Integer id;
 
 	private String tipo;
