@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FileUtils;
 
-import br.com.caelum.livraria.bean.LogBean;
-
+@ManagedBean
+@ViewScoped
 public class ValidaPedido {
 
 	private File arquivo;
@@ -26,9 +28,7 @@ public class ValidaPedido {
 	private ArrayList<String> listaCpf;
 	private PrintWriter pw;
 	private FileWriter fw;
-	private ArrayList<String> log;
-	private Log l;
-	private LogBean lb;
+	private List<String> log;
 	private ValidaPasseLivre validaPasseLivre;
 	
 	public ValidaPedido(String fileName, InputStream inputstream) throws IOException {
@@ -44,8 +44,6 @@ public class ValidaPedido {
 		this.fw = new FileWriter(FacesContext.getCurrentInstance().getExternalContext().getRealPath("")+"/resources/log/log.txt");
 		this.pw = new PrintWriter(fw);
 		this.log = new ArrayList<String>();
-		this.l = new Log();
-		this.lb = new LogBean();
 		this.validaPasseLivre = new ValidaPasseLivre();
 	}
 	
@@ -71,8 +69,6 @@ public class ValidaPedido {
 					if(text.length<6){
 						System.out.println("Layout incorreto, linha: " + line);
 						log.add("Layout incorreto, linha: " + line);
-						l.setComentario("Layout incorreto, linha: " + line);
-						lb.adicionarLog(l);
 						pw.println("Layout incorreto, linha: " + line);
 						pw.flush();
 					}else{	
@@ -82,15 +78,11 @@ public class ValidaPedido {
 							if(!validaCpf.isCPF(text[0])){
 								System.out.println("Erro cpf, linha: " + line);
 								log.add("Erro cpf, linha: " + line);
-								l.setComentario("Erro cpf, linha: " + line);
-								lb.adicionarLog(l);
 								pw.println("Erro cpf, linha: " + line);
 								pw.flush();
 							}else if(validaPasseLivre.validaPL(text[0])){
 								System.out.println("Cpf não se encontra na lista de PL, linha: " + line);
 								log.add("Cpf não se encontra na lista de PL, linha: " + line);
-								l.setComentario("Cpf não se encontra na lista de PL, linha: " + line);
-								lb.adicionarLog(l);
 								pw.println("Cpf não se encontra na lista de PL, linha: " + line);
 								pw.flush();
 							}
@@ -99,8 +91,6 @@ public class ValidaPedido {
 						}else{
 							System.out.println("Campo cpf se encontra vazio, linha: " + line);
 							log.add("Campo cpf se encontra vazio, linha: " + line);
-							l.setComentario("Campo cpf se encontra vazio, linha: " + line);
-							lb.adicionarLog(l);
 							pw.println("Campo cpf se encontra vazio, linha: " + line);
 							pw.flush();
 							pedido.setCpf("00000000000");
@@ -225,14 +215,11 @@ public class ValidaPedido {
 	
 	
 	
-	public ArrayList<String> getLog() {
-		return log;
+	public List<String> getListarLog() throws IOException {
+		List<String> lista = FileUtils.readLines(arquivo);
+		return lista;
 	}
 	
-	public void setLog(ArrayList<String> log) {
-		this.log = log;
-	}
-
 	public ArrayList<Integer> duplicidadeCpf(ArrayList<String> lcpf){
 		// VERIFICAR SE HÁ DUPLICIDADE NO CPF
 		int i = 2;

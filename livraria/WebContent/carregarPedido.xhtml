@@ -29,15 +29,16 @@
 		</h:form>
 		
 		<h:form>
-			<p:fieldset legend="Log">
-				<h:dataTable value="#{logBean.logPedido}" var="log">
-					<p:column>
+			<p:fieldset id="logs" legend="Log">
+				<h:dataTable value="#{validaPedido.listarLog}" var="log">
+					<h:column>
 						<f:facet name="header">LOG</f:facet>
-						<h:outputText value="#{log.comentario}"/>
-					</p:column>
+							<h:outputText value="#{log}"/>
+					</h:column>
 				</h:dataTable>
 			</p:fieldset>
 		</h:form>
+		
 		<h:form>
 			<p:fieldset legend="Baixar Log">
 				<p:dialog modal="true" widgetVar="statusDialog" header="Status"
