@@ -17,12 +17,12 @@
 				<p:growl id="pedido" showDetail="true" />
 				
 				
-				<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+				<p:fileUpload value="#{fileUploadView.file}" mode="simple" label="Escolher Pedido"
 					skinSimple="true" update="pedido" allowTypes="/(\.|\/)(txt)$/"/>
 				
 					
 				<br /> <br />
-				<p:commandButton value="Enviar" ajax="false"
+				<p:commandButton value="Verificar Pedido" ajax="false"
 					actionListener="#{fileUploadView.upload}" disabled="false"
 					icon="ui-icon-arrowreturnthick-1-n" />
 			</p:fieldset>
