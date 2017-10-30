@@ -12,7 +12,7 @@ public class Teste1 {
 		
 		UsuarioDoSistemaSiluDAO d = new UsuarioDoSistemaSiluDAO();
 		
-		System.out.println(d.existe(new DAO<UsuarioDoSistemaSilu>(UsuarioDoSistemaSilu.class).buscaPorId(1), "senha"));
+		System.out.println(d.existe(new DAO<UsuarioDoSistemaSilu>(UsuarioDoSistemaSilu.class).buscaPorId(1), "555"));
 	}
 
 }

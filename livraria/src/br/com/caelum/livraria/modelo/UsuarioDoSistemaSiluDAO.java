@@ -18,17 +18,11 @@ public class UsuarioDoSistemaSiluDAO {
 
 		query.setParameter("pLogin", UsuarioDoSistemaSilu.getLogin());
 
-		UsuarioDoSistemaSilu result = null;
-
-		try {
-			result = query.getSingleResult();
-			System.out.println(result.getSenha());
-			//if (bcrypt.matches(senha, result.getSenha())) {
-			if(senha.equalsIgnoreCase(result.getSenha())){
-				return true;
-			}
-		} catch (Exception e) {
-			return false;
+		UsuarioDoSistemaSilu result = query.getSingleResult();
+		System.out.println(result.getSenha());
+		//if (bcrypt.matches(senha, result.getSenha())) {
+		if(senha.equalsIgnoreCase(result.getSenha())){
+			return true;
 		}
 
 		em.close();
