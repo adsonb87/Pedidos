@@ -38,16 +38,13 @@ public class UsuarioDoSistemaSiluDAO {
 
 		query.setParameter("pLogin", login);
 
-		UsuarioDoSistemaSilu result = null;
-
-		try {
-			result = query.getSingleResult();
-		} catch (Exception e) {
-			return null;
-		}
-
+		UsuarioDoSistemaSilu result =  query.getSingleResult();
+		
 		em.close();
-
-		return result;
+		if(result == null){
+			return null;
+		} else{
+			return result;
+		}
 	}
 }
