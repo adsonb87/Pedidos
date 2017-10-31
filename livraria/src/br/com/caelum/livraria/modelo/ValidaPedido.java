@@ -214,13 +214,21 @@ public class ValidaPedido {
 			pw.println("Pedido validado com sucesso");
 			pw.flush();
 			pw.close();
+			System.out.println(log.toString());
 	}
 	
-	public String getListarLog(){
-		String lista = "teste";
-		return lista;
+	
+	
+	public List<String> getLog() {
+		return log;
+	}
+
+	public void setLog(List<String> log) {
+		this.log = log;
 	}
 	
+	
+
 	public ArrayList<Integer> duplicidadeCpf(ArrayList<String> lcpf){
 		// VERIFICAR SE HÁ DUPLICIDADE NO CPF
 		int i = 2;

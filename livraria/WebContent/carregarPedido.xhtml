@@ -17,16 +17,32 @@
 				<p:growl id="pedido" showDetail="true" />
 				
 				
-				<p:fileUpload value="#{fileUploadView.file}" mode="simple" label="Escolher Pedido"
-					skinSimple="true" update="pedido" allowTypes="/(\.|\/)(txt)$/"/>
+				<p:fileUpload value="#{fileUploadView.file}" mode="simple" 
+							label="Escolher Pedido" skinSimple="true" 
+							update="pedido" allowTypes="/(\.|\/)(txt)$/"/>
 				
 					
-				<br /> <br />
+				<br /> <br />		
 				<p:commandButton value="Verificar Pedido" ajax="false"
 					actionListener="#{fileUploadView.upload}" disabled="false"
-					icon="ui-icon-arrowreturnthick-1-n" />
+					icon="ui-icon-arrowreturnthick-1-n">			
+					<f:ajax execute="@form" render="@form :formLogPedido:tabelaLog"/>	
+				</p:commandButton>
+
 			</p:fieldset>
 		</h:form>
+		
+		<h:form id="formLogPedido">
+				<h:dataTable id="tabelaLog" value="#{validaPedido.log}" var="log">
+					<h:column>
+						<f:facet name="header">Log</f:facet>
+						<h:outputText value="#{log}"/>
+					</h:column>
+				</h:dataTable>
+		</h:form>
+		
+		
+		
 		
 		<h:form>
 			<p:fieldset legend="Baixar Log">
