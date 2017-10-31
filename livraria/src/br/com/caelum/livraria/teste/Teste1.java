@@ -1,18 +1,22 @@
 package br.com.caelum.livraria.teste;
 
+import br.com.caelum.livraria.bean.LoginBean;
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.UsuarioDoSistemaSilu;
-import br.com.caelum.livraria.modelo.UsuarioDoSistemaSiluDAO;
 
 public class Teste1 {
 
 	public static void main(String[] args) {
 		
-		new DAO<UsuarioDoSistemaSilu>(UsuarioDoSistemaSilu.class).buscaPorId(1);
+		UsuarioDoSistemaSilu user = new DAO<UsuarioDoSistemaSilu>(UsuarioDoSistemaSilu.class).buscaPorId(1);
 		
-		UsuarioDoSistemaSiluDAO d = new UsuarioDoSistemaSiluDAO();
+		LoginBean l = new LoginBean();
 		
-		System.out.println(d.buscaPorLogin(new DAO<UsuarioDoSistemaSilu>(UsuarioDoSistemaSilu.class).buscaPorId(1).getLogin()));
+		l.setUsuarioDoSistemaSilu(user);
+		l.setSenha("senha");
+		
+		System.out.println(l.efetuarLogin());
+		
 	}
 
 }
