@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import br.com.caelum.livraria.modelo.UsuarioDoSistemaSilu;
 import br.com.caelum.livraria.modelo.UsuarioDoSistemaSiluDAO;
+import br.com.caelum.livraria.util.RedirectView;
 
 @ManagedBean
 @SessionScoped
@@ -33,7 +34,7 @@ public class LoginBean implements Serializable{
 		this.senha = senha;
 	}
 
-	public String efetuarLogin() { 
+	public RedirectView efetuarLogin() { 
 
 		boolean existe = new UsuarioDoSistemaSiluDAO().existe(this.user, senha);
 
@@ -42,18 +43,18 @@ public class LoginBean implements Serializable{
 		if (existe) {
 			this.user = new UsuarioDoSistemaSiluDAO().buscaPorLogin(this.user.getLogin());
 			contexto.getExternalContext().getSessionMap().put("UsuarioDoSistemaSilulogado", this.user);
-			return "userSilu?faces-redirect-true";
+			return new RedirectView("carregarPedido");
 		} else {
 			contexto.getExternalContext().getFlash().setKeepMessages(true);
 			contexto.addMessage(null, new FacesMessage("Usuário e/ou senha inválido."));
-			return "login?faces-redirect=true";
+			return new RedirectView("login");
 		}
 
 	}
 
-	public String deslogar() {
+	public RedirectView deslogar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
 		contexto.getExternalContext().getSessionMap().remove("UsuarioDoSistemaSilulogado");
-		return "login?faces-redirect=true";
+		return new RedirectView("login");
 	}
 }

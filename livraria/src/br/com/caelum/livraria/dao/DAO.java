@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
-import br.com.caelum.livraria.util.JPAUtil;
-
 public class DAO<T> {
 
 	private final Class<T> classe;

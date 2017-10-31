@@ -6,8 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import br.com.caelum.livraria.dao.JPAUtil;
 import br.com.caelum.livraria.modelo.Rechargeinfo;
-import br.com.caelum.livraria.util.JPAUtil;
 
 public class Teste4 {
 	public static void main(String[] args) throws IOException {		

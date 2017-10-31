@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import br.com.caelum.livraria.util.JPAUtil;
+import br.com.caelum.livraria.dao.JPAUtil;
 
 public class ValidaPasseLivre {
 	public boolean validaPL(String cpf){
