@@ -13,7 +13,6 @@ public class Teste1 {
 		LoginBean l = new LoginBean();
 		
 		l.setUsuarioDoSistemaSilu(user);
-		l.setSenha("senha");
 		
 		System.out.println(l.efetuarLogin());
 		

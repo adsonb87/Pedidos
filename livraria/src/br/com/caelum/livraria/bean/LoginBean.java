@@ -16,7 +16,6 @@ import br.com.caelum.livraria.util.RedirectView;
 public class LoginBean implements Serializable{
 	
 	private UsuarioDoSistemaSilu user = new UsuarioDoSistemaSilu();
-	private String senha;
 
 	public UsuarioDoSistemaSilu getUser() {
 		return user;
@@ -26,22 +25,16 @@ public class LoginBean implements Serializable{
 		this.user = UsuarioDoSistemaSilu;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 
 	public RedirectView efetuarLogin() { 
-
-		boolean existe = new UsuarioDoSistemaSiluDAO().existe(this.user, senha);
-
+		
+		System.out.println(user.getLogin() + " " + user.getSenha());
+		
 		FacesContext contexto = FacesContext.getCurrentInstance();
+		
+		boolean existe = new UsuarioDoSistemaSiluDAO().existe(this.user);
 
 		if (existe) {
-			this.user = new UsuarioDoSistemaSiluDAO().buscaPorLogin(this.user.getLogin());
 			contexto.getExternalContext().getSessionMap().put("UsuarioDoSistemaSilulogado", this.user);
 			return new RedirectView("carregarPedido");
 		} else {

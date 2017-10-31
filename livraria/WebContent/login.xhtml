@@ -20,7 +20,7 @@
 				<h:panelGrid columns="3">
 					
 					<p:outputLabel value="Email:" for="email" />
-					<p:inputText id="email" value="#{loginBean.user.email}" required="true" />
+					<p:inputText id="email" value="#{loginBean.user.login}" required="true" />
 					<p:message for="senha" id="messageEmail"/>				
 					<p:outputLabel value="Senha:" for="senha" />
 					<p:password id="senha" value="#{loginBean.user.senha}" required="true" feedback="true"/>
