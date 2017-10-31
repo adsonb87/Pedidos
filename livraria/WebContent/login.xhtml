@@ -19,11 +19,11 @@
 			<p:fieldset legend="login">
 				<h:panelGrid columns="3">
 					
-					<p:outputLabel value="Email:" for="email" />
-					<p:inputText id="email" value="#{loginBean.user.login}" required="true" />
+					<p:outputLabel value="Login:" for="email" />
+					<p:inputText id="login" value="#{loginBean.user.login(login)}" required="true" />
 					<p:message for="senha" id="messageEmail"/>				
 					<p:outputLabel value="Senha:" for="senha" />
-					<p:password id="senha" value="#{loginBean.user.senha}" required="true" feedback="true"/>
+					<p:password id="senha" value="#{loginBean.user.senha(senha)}" required="true" feedback="true"/>
 					<p:message for="senha" id="messageSenha"/>
 															
 					<p:commandButton value="Login" action="#{loginBean.efetuarLogin}" update="@form" process="@form"/>
