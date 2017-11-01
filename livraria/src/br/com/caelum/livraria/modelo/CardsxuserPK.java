@@ -87,4 +87,9 @@ public class CardsxuserPK implements Serializable {
 		
 		return hash;
 	}
+	@Override
+	public String toString() {
+		return "CardsxuserPK [issId=" + issId + ", cdId=" + cdId + ", crdSnr=" + crdSnr + ", ciId=" + ciId + ", usrId="
+				+ usrId + "]";
+	}
 }

@@ -3,6 +3,7 @@ package br.com.caelum.livraria.modelo;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -212,5 +213,19 @@ public class Cardsxuser implements Serializable {
 	public void setPraId(BigDecimal praId) {
 		this.praId = praId;
 	}
+
+	@Override
+	public String toString() {
+		return "Cardsxuser [id=" + id + ", crdusrBoxname=" + crdusrBoxname + ", crdusrDatedelivery="
+				+ crdusrDatedelivery + ", crdusrDateprint=" + crdusrDateprint + ", crdusrDatequeue=" + crdusrDatequeue
+				+ ", crdusrDaterecord=" + crdusrDaterecord + ", crdusrDigitalsign=" + Arrays.toString(crdusrDigitalsign)
+				+ ", crdusrJobnbr=" + crdusrJobnbr + ", crdusrPrnstatus=" + crdusrPrnstatus + ", crdusrReceiverdate="
+				+ crdusrReceiverdate + ", crdusrReceiveridnbr=" + crdusrReceiveridnbr + ", crdusrReceivername="
+				+ crdusrReceivername + ", crdusrRegdate=" + crdusrRegdate + ", crdusrReguser=" + crdusrReguser
+				+ ", crdusrStatus=" + crdusrStatus + ", crdusrUserdelivery=" + crdusrUserdelivery + ", praId=" + praId
+				+ "]";
+	}
+	
+	
 
 }

@@ -185,4 +185,14 @@ public class Userdocument implements Serializable {
 		this.usrdocTermo = usrdocTermo;
 	}
 
+	@Override
+	public String toString() {
+		return "Userdocument [id=" + id + ", stCode=" + stCode + ", usrdocCirc=" + usrdocCirc + ", usrdocCity="
+				+ usrdocCity + ", usrdocComplement=" + usrdocComplement + ", usrdocEmissiondate=" + usrdocEmissiondate
+				+ ", usrdocFolha=" + usrdocFolha + ", usrdocInstitution=" + usrdocInstitution + ", usrdocLivro="
+				+ usrdocLivro + ", usrdocNumber=" + usrdocNumber + ", usrdocRegdate=" + usrdocRegdate
+				+ ", usrdocReguser=" + usrdocReguser + ", usrdocStatus=" + usrdocStatus + ", usrdocSubdistrict="
+				+ usrdocSubdistrict + ", usrdocTermo=" + usrdocTermo + "]";
+	}
+
 }

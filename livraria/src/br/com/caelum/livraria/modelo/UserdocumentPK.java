@@ -65,4 +65,8 @@ public class UserdocumentPK implements Serializable {
 		
 		return hash;
 	}
+	@Override
+	public String toString() {
+		return "UserdocumentPK [dtId=" + dtId + ", usrId=" + usrId + ", usrdocSeqnbr=" + usrdocSeqnbr + "]";
+	}
 }
