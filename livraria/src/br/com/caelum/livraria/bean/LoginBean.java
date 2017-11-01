@@ -1,7 +1,5 @@
 package br.com.caelum.livraria.bean;
 
-import java.io.Serializable;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -35,7 +33,7 @@ public class LoginBean{
 		boolean existe = new UsuarioDoSistemaSiluDAO().existe(this.user);
 
 		if (existe) {
-			contexto.getExternalContext().getSessionMap().put("UsuarioDoSistemaSilulogado", this.user);
+			contexto.getExternalContext().getSessionMap().put("usuarioLogado", this.user);
 			return new RedirectView("carregarPedido");
 		}
 			

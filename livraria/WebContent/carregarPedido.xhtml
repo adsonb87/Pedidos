@@ -32,18 +32,6 @@
 			</p:fieldset>
 		</h:form>
 		
-		<h:form id="formLogPedido">
-				<h:dataTable id="tabelaLog" value="#{validaPedido.log}" var="log">
-					<h:column>
-						<f:facet name="header">Log</f:facet>
-						<h:outputText value="#{log}"/>
-					</h:column>
-				</h:dataTable>
-		</h:form>
-		
-		
-		
-		
 		<h:form>
 			<p:fieldset legend="Baixar Log">
 				<p:dialog modal="true" widgetVar="statusDialog" header="Status"
