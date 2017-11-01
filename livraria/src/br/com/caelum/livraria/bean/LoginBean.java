@@ -13,7 +13,7 @@ import br.com.caelum.livraria.util.RedirectView;
 
 @ManagedBean
 @SessionScoped
-public class LoginBean implements Serializable{
+public class LoginBean{
 	
 	private UsuarioDoSistemaSilu user = new UsuarioDoSistemaSilu();
 
@@ -26,7 +26,7 @@ public class LoginBean implements Serializable{
 	}
 
 
-	public RedirectView efetuarLogin() { 
+	public String efetuarLogin() { 
 		
 		System.out.println(user.getLogin() + " " + user.getSenha());
 		
@@ -36,11 +36,13 @@ public class LoginBean implements Serializable{
 
 		if (existe) {
 			contexto.getExternalContext().getSessionMap().put("UsuarioDoSistemaSilulogado", this.user);
-			return new RedirectView("carregarPedido");
+			return "carregarPedido?faces-redirect=true";
+			//return new RedirectView("carregarPedido");
 		} else {
 			contexto.getExternalContext().getFlash().setKeepMessages(true);
 			contexto.addMessage(null, new FacesMessage("Usuário e/ou senha inválido."));
-			return new RedirectView("login");
+			return "login?faces-redirect=true";
+			//return new RedirectView("login");
 		}
 
 	}

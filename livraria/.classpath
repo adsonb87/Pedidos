@@ -28,6 +28,5 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-lang-2.3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/all-themes-1.0.10.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.faces-2.3.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

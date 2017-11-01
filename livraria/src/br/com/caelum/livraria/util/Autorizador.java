@@ -17,11 +17,14 @@ public class Autorizador implements PhaseListener{
 		
 		String nomePagina = context.getViewRoot().getViewId();
 		
+		System.out.println(nomePagina);
+		
 		if("/login.xhtml".equals(nomePagina)){
 			return;
 		}
 		
-		UsuarioDoSistemaSilu usuarioLogado = (UsuarioDoSistemaSilu) context.getExternalContext().getSessionMap().get("usuarioLogado");
+		UsuarioDoSistemaSilu usuarioLogado = (UsuarioDoSistemaSilu) 
+				context.getExternalContext().getSessionMap().get("usuarioLogado");
 		
 		if(usuarioLogado != null){
 			return;
