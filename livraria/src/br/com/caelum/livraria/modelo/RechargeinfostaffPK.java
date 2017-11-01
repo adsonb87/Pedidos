@@ -54,4 +54,8 @@ public class RechargeinfostaffPK implements Serializable {
 		
 		return hash;
 	}
+	@Override
+	public String toString() {
+		return "RechargeinfostaffPK [riId=" + riId + ", ristfId=" + ristfId + "]";
+	}
 }

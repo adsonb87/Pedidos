@@ -15,8 +15,6 @@ public class Teste5 {
 		
 		EntityManager em = new JPAUtil().getEntityManager();
 				
-		   //--PARA PCR USAR 27788
-
 //		StringBuilder sb = new StringBuilder();
 //		sb.append(" SELECT DISTINCT ud"); 
 //		sb.append(" FROM Userdocument ud ");
@@ -28,16 +26,16 @@ public class Teste5 {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" SELECT DISTINCT ud"); 
 		sb.append(" FROM Userdocument ud ");
-		//sb.append(" WHERE ud.dtId = 6 ");
+		sb.append("");
+		sb.append(" WHERE ud.usrdocNumber = :pCpf ");
+		sb.append(" AND DT_ID = :pDtid");
 		
 		TypedQuery<Userdocument> query = em.createQuery(sb.toString(), Userdocument.class);
-		
-		//TypedQuery<Userdocument> query = em.createQuery(sb.toString(), Userdocument.class);
-		//query.setParameter("pCpf", "71214408494");
-		//query.setParameter("pTipo", 19);
+		query.setParameter("pCpf", "71214408494");
+		query.setParameter("pDtid", 6);
+
 		
 		List<Userdocument> r = query.getResultList();
-		System.out.println("a");
 		for(Userdocument u : r){
 			System.out.println(u.toString());
 		}

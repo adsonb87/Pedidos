@@ -192,7 +192,7 @@ public class Userdocument implements Serializable {
 				+ ", usrdocFolha=" + usrdocFolha + ", usrdocInstitution=" + usrdocInstitution + ", usrdocLivro="
 				+ usrdocLivro + ", usrdocNumber=" + usrdocNumber + ", usrdocRegdate=" + usrdocRegdate
 				+ ", usrdocReguser=" + usrdocReguser + ", usrdocStatus=" + usrdocStatus + ", usrdocSubdistrict="
-				+ usrdocSubdistrict + ", usrdocTermo=" + usrdocTermo + "]";
+				+ usrdocSubdistrict + ", usrdocTermo=" + usrdocTermo + "]\n";
 	}
 
 }
