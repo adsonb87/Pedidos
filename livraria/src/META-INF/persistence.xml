@@ -13,6 +13,10 @@
 		<class>br.com.caelum.livraria.modelo.RechargeinfostaffPK</class>
 		<class>br.com.caelum.livraria.modelo.TipoDeUsuarioDoSistemaSilu</class>
 		<class>br.com.caelum.livraria.modelo.UsuarioDoSistemaSilu</class>
+		<class>br.com.caelum.livraria.modelo.Cardsxuser</class>
+		<class>br.com.caelum.livraria.modelo.CardsxuserPK</class>
+		<class>br.com.caelum.livraria.modelo.Userdocument</class>
+		<class>br.com.caelum.livraria.modelo.UserdocumentPK</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
