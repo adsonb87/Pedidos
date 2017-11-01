@@ -45,7 +45,7 @@ public class LoginBean{
 
 	public RedirectView deslogar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
-		contexto.getExternalContext().getSessionMap().remove("UsuarioDoSistemaSilulogado");
+		contexto.getExternalContext().getSessionMap().remove("usuarioLogado");
 		return new RedirectView("login");
 	}
 }
