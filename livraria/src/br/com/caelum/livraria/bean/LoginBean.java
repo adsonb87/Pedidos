@@ -26,7 +26,7 @@ public class LoginBean{
 	}
 
 
-	public String efetuarLogin() { 
+	public RedirectView efetuarLogin() { 
 		
 		System.out.println(user.getLogin() + " " + user.getSenha());
 		
@@ -36,14 +36,12 @@ public class LoginBean{
 
 		if (existe) {
 			contexto.getExternalContext().getSessionMap().put("UsuarioDoSistemaSilulogado", this.user);
-			return "carregarPedido?faces-redirect=true";
-			//return new RedirectView("carregarPedido");
-		} else {
-			contexto.getExternalContext().getFlash().setKeepMessages(true);
-			contexto.addMessage(null, new FacesMessage("Usuário e/ou senha inválido."));
-			return "login?faces-redirect=true";
-			//return new RedirectView("login");
+			return new RedirectView("carregarPedido");
 		}
+			
+		contexto.getExternalContext().getFlash().setKeepMessages(true);
+		contexto.addMessage(null, new FacesMessage("Usuário e/ou senha inválido."));
+		return new RedirectView("login");
 
 	}
 
