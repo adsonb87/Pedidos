@@ -26,7 +26,7 @@ public class Teste5 {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" SELECT DISTINCT ud"); 
 		sb.append(" FROM Userdocument ud ");
-		sb.append("");
+		sb.append(" JOIN ud.cardsxusers cxu");
 		sb.append(" WHERE ud.usrdocNumber = :pCpf ");
 		sb.append(" AND DT_ID = :pDtid");
 		
