@@ -160,9 +160,9 @@ public class ValidaPedido {
 								if(validaCpfNaBase.validaCpfNaBase(cpf, tipoCartao)){
 									pedido.setTipoCartao(tipoCartao);																
 								}else{
-									System.out.println("Pessoa não encotnrada na base: " + line);
-									log.add("Pessoa não encotnrada na base: " + line);
-									pw.println("Pessoa não encotnrada na base: " + line);
+									System.out.println("Pessoa não encotnrada na base, linha: " + line);
+									log.add("Pessoa não encotnrada na base, linha: " + line);
+									pw.println("Pessoa não encotnrada na base, linha: " + line);
 									pw.flush();
 								}
 							}else{

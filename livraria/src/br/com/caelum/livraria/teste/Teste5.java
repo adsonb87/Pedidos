@@ -40,19 +40,21 @@ public class Teste5 {
 		sbCardsxusers.append(" AND USR_ID = :pUsrId");
 		
 		TypedQuery<Userdocument> queryUserdocument = em.createQuery(sbUserdocument.toString(), Userdocument.class);
-		queryUserdocument.setParameter("pCpf", "11002231426");
+		queryUserdocument.setParameter("pCpf", "07114991444");
 		
-		Userdocument r = queryUserdocument.getSingleResult();
-		System.out.println(r.getId().getUsrId());
+		List<Userdocument> r = queryUserdocument.getResultList();
+		if(r.isEmpty()){
+			System.out.println("não encontrado");
+		}
+		
+		System.out.println(r.get(0).getId().getUsrId());
 		
 		TypedQuery<Cardsxuser> queryCardsxussers = em.createQuery(sbCardsxusers.toString(), Cardsxuser.class);
 		queryCardsxussers.setParameter("pCdId", 19);
-		queryCardsxussers.setParameter("pUsrId", r.getId().getUsrId());
+		queryCardsxussers.setParameter("pUsrId", r.get(0).getId().getUsrId());
 		
 		
 		List<Cardsxuser> l = queryCardsxussers.getResultList();
-		
-		//Cardsxuser r2 = queryCardsxussers.getSingleResult();
 		
 		if(!l.isEmpty()){
 			System.out.println(l.toString());

@@ -27,11 +27,15 @@ public class ValidaCpfNaBase {
 			TypedQuery<Userdocument> queryUserdocument = em.createQuery(sbUserdocument.toString(), Userdocument.class);
 			queryUserdocument.setParameter("pCpf", cpf);
 			
-			Userdocument ud = queryUserdocument.getSingleResult();
+			List<Userdocument> ud = queryUserdocument.getResultList();
+			
+			if(ud.isEmpty()){
+				return false;
+			}
 			
 			TypedQuery<Cardsxuser> queryCardsxussers = em.createQuery(sbCardsxusers.toString(), Cardsxuser.class);
 			queryCardsxussers.setParameter("pCdId", cardId);
-			queryCardsxussers.setParameter("pUsrId", ud.getId().getUsrId());
+			queryCardsxussers.setParameter("pUsrId", ud.get(0).getId().getUsrId());
 			
 			List<Cardsxuser> lista = queryCardsxussers.getResultList();
 			
