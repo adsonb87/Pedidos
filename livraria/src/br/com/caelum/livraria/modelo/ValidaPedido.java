@@ -54,13 +54,6 @@ public class ValidaPedido {
 		
 	}
 	
-//	public boolean validaTipoArquivo(File arquivo){
-//		if(arquivo.getName().endsWith(".txt")){
-//			return true;
-//		}
-//		return false;
-//	}
-	
 	public void validaArquivoPedido() throws IOException{
  			for(String linha : linhasArquivo){
 				pedido = new Pedido();
