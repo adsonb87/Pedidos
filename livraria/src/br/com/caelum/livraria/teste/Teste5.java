@@ -7,7 +7,10 @@ import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.type.descriptor.java.CalendarTypeDescriptor;
+
 import br.com.caelum.livraria.dao.JPAUtil;
+import br.com.caelum.livraria.modelo.Cardsxuser;
 import br.com.caelum.livraria.modelo.Userdocument;
 
 public class Teste5 {
@@ -18,34 +21,54 @@ public class Teste5 {
 //		StringBuilder sb = new StringBuilder();
 //		sb.append(" SELECT DISTINCT ud"); 
 //		sb.append(" FROM Userdocument ud ");
-//		sb.append(" JOIN ud.Cardsxuser cxu");
-//		sb.append(" WHERE ud.dtId = 6");
-//		sb.append(" AND ud.usrdocNumber = :pCpf ");
-//		sb.append("	AND cxu.cdId = :pTipo");
+//		sb.append(" JOIN ud.cardsxuserpk cxu");
+//		sb.append(" WHERE DT_ID = 6");
+		//sb.append(" AND ud.usrdocNumber = :pCpf");
+		//sb.append("	AND cxu.CD_ID = :pTipo");
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append(" SELECT DISTINCT ud"); 
-		sb.append(" FROM Userdocument ud ");
-		sb.append(" JOIN ud.cardsxusers cxu");
-		sb.append(" WHERE ud.usrdocNumber = :pCpf ");
-		sb.append(" AND DT_ID = :pDtid");
 		
-		TypedQuery<Userdocument> query = em.createQuery(sb.toString(), Userdocument.class);
-		query.setParameter("pCpf", "71214408494");
-		query.setParameter("pDtid", 6);
-
+		StringBuilder sbUserdocument = new StringBuilder();
+		sbUserdocument.append(" SELECT DISTINCT ud"); 
+		sbUserdocument.append(" FROM Userdocument ud");
+		sbUserdocument.append(" WHERE ud.usrdocNumber = :pCpf");
+		sbUserdocument.append(" AND DT_ID = 6");
 		
-		List<Userdocument> r = query.getResultList();
-		for(Userdocument u : r){
-			System.out.println(u.toString());
+		StringBuilder sbCardsxusers = new StringBuilder();
+		sbCardsxusers.append(" SELECT DISTINCT cxu"); 
+		sbCardsxusers.append(" FROM Cardsxuser cxu");
+		sbCardsxusers.append(" WHERE CD_ID = :pCdId");
+		sbCardsxusers.append(" AND USR_ID = :pUsrId");
+		
+		TypedQuery<Userdocument> queryUserdocument = em.createQuery(sbUserdocument.toString(), Userdocument.class);
+		queryUserdocument.setParameter("pCpf", "11002231426");
+		
+		Userdocument r = queryUserdocument.getSingleResult();
+		System.out.println(r.getId().getUsrId());
+		
+		TypedQuery<Cardsxuser> queryCardsxussers = em.createQuery(sbCardsxusers.toString(), Cardsxuser.class);
+		queryCardsxussers.setParameter("pCdId", 19);
+		queryCardsxussers.setParameter("pUsrId", r.getId().getUsrId());
+		
+		
+		List<Cardsxuser> l = queryCardsxussers.getResultList();
+		
+		//Cardsxuser r2 = queryCardsxussers.getSingleResult();
+		
+		if(!l.isEmpty()){
+			System.out.println(l.toString());
+		}else{
+			System.out.println("Não encontrado");
 		}
 		
-//		if(r.isEmpty()){
-//			System.out.println("Não encontrado");
-//		}else{
-//			System.out.println("Encontrado");
+//		if(!r2.equals(null)){
+//			System.out.println(r2.toString());	
 //		}
 		
+		
+		
+//		for(Userdocument u : r){
+//			System.out.println(u.getId());
+//		}
 
 		em.close();
 	}	
