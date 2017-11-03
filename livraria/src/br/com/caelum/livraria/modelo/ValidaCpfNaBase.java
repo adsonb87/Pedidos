@@ -8,26 +8,36 @@ import javax.persistence.TypedQuery;
 import br.com.caelum.livraria.dao.JPAUtil;
 
 public class ValidaCpfNaBase {
-	public boolean validaPL(String cpf){
+	public boolean validaCpfNaBase(String cpf, Integer cardId){
 			
 			EntityManager em = new JPAUtil().getEntityManager();
 			
-			StringBuilder sb = new StringBuilder();
-			sb.append(" SELECT DISTINCT ri"); 
-			sb.append(" FROM Rechargeinfo ri ");
-			sb.append(" JOIN FETCH ri.rechargeinfostaffs rs ");
-			sb.append(" WHERE ri.prvId = 12715 "); //--PARA PCR USAR 27788 - RMR 12715
-			sb.append(" AND ri.utId <> 5 ");
-			sb.append(" AND rs.ristfDocnbr = :pCpf");
+			StringBuilder sbUserdocument = new StringBuilder();
+			sbUserdocument.append(" SELECT DISTINCT ud"); 
+			sbUserdocument.append(" FROM Userdocument ud");
+			sbUserdocument.append(" WHERE ud.usrdocNumber = :pCpf");
+			sbUserdocument.append(" AND DT_ID = 6"); //Tipo de documento 6 = cpf	
 			
-			TypedQuery<Rechargeinfo> query = em.createQuery(sb.toString(), Rechargeinfo.class);
-			query.setParameter("pCpf", cpf);
-	
-			List<Rechargeinfo> lista = query.getResultList();
+			StringBuilder sbCardsxusers = new StringBuilder();
+			sbCardsxusers.append(" SELECT DISTINCT cxu"); 
+			sbCardsxusers.append(" FROM Cardsxuser cxu");
+			sbCardsxusers.append(" WHERE CD_ID = :pCdId");
+			sbCardsxusers.append(" AND USR_ID = :pUsrId");
+			
+			TypedQuery<Userdocument> queryUserdocument = em.createQuery(sbUserdocument.toString(), Userdocument.class);
+			queryUserdocument.setParameter("pCpf", cpf);
+			
+			Userdocument ud = queryUserdocument.getSingleResult();
+			
+			TypedQuery<Cardsxuser> queryCardsxussers = em.createQuery(sbCardsxusers.toString(), Cardsxuser.class);
+			queryCardsxussers.setParameter("pCdId", cardId);
+			queryCardsxussers.setParameter("pUsrId", ud.getId().getUsrId());
+			
+			List<Cardsxuser> lista = queryCardsxussers.getResultList();
 			
 			em.close();
 			
-			if(lista.isEmpty()){
+			if(!lista.isEmpty()){
 				return true;
 			}else{
 				return false;

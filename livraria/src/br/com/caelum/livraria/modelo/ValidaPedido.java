@@ -30,6 +30,8 @@ public class ValidaPedido {
 	private FileWriter fw;
 	private List<String> log;
 	private ValidaPasseLivre validaPasseLivre;
+	private ValidaCpfNaBase validaCpfNaBase;
+	private String cpf;
 	
 	public ValidaPedido(String fileName, InputStream inputstream) throws IOException {
 		//this.arquivo = new File(enderecoArquivo); //RECEBE O ENDEREÇO DO ARQUIVO A SER IMPORTADO
@@ -45,6 +47,7 @@ public class ValidaPedido {
 		this.pw = new PrintWriter(fw);
 		this.log = new ArrayList<String>();
 		this.validaPasseLivre = new ValidaPasseLivre();
+		this.validaCpfNaBase = new ValidaCpfNaBase();
 	}
 	
 	public ValidaPedido(){
@@ -80,14 +83,11 @@ public class ValidaPedido {
 								log.add("Erro cpf, linha: " + line);
 								pw.println("Erro cpf, linha: " + line);
 								pw.flush();
-							}else if(validaPasseLivre.validaPL(text[0])){
-								System.out.println("Cpf não se encontra na lista de PL, linha: " + line);
-								log.add("Cpf não se encontra na lista de PL, linha: " + line);
-								pw.println("Cpf não se encontra na lista de PL, linha: " + line);
-								pw.flush();
+							}else{ 
+								cpf = text[0];
+								pedido.setCpf(text[0]);
+								listaCpf.add(text[0]);
 							}
-							pedido.setCpf(text[0]);
-							listaCpf.add(text[0]);
 						}else{
 							System.out.println("Campo cpf se encontra vazio, linha: " + line);
 							log.add("Campo cpf se encontra vazio, linha: " + line);
@@ -157,7 +157,14 @@ public class ValidaPedido {
 						if(!text[4].isEmpty()){
 							Integer tipoCartao = Integer.parseInt(text[4]);
 							if(tipoCartao == 19 || tipoCartao == 17){
-								pedido.setTipoCartao(tipoCartao);							
+								if(validaCpfNaBase.validaCpfNaBase(cpf, tipoCartao)){
+									pedido.setTipoCartao(tipoCartao);																
+								}else{
+									System.out.println("Pessoa não encotnrada na base: " + line);
+									log.add("Pessoa não encotnrada na base: " + line);
+									pw.println("Pessoa não encotnrada na base: " + line);
+									pw.flush();
+								}
 							}else{
 								System.out.println("Erro tipo do cartão, linha: " + line);
 								log.add("Erro tipo do cartão, linha: " + line);
@@ -203,7 +210,7 @@ public class ValidaPedido {
  			
  			
  			
-			if(!duplicidadeCpf(listaCpf).isEmpty()){ // CHAMA O METÃ“DO PARA VERIFICAR A DUPLICIDADE DE CPF,re
+			if(!duplicidadeCpf(listaCpf).isEmpty()){ // CHAMA O METODO PARA VERIFICAR A DUPLICIDADE DE CPF
 				System.out.println("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
 				log.add("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
 				pw.println("Cpf em duplicidade nas linhas: " + duplicidadeCpf(listaCpf));
@@ -214,7 +221,6 @@ public class ValidaPedido {
 			pw.println("Pedido validado com sucesso");
 			pw.flush();
 			pw.close();
-			System.out.println(log.toString());
 	}
 	
 	
